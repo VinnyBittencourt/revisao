@@ -291,3 +291,35 @@ la1 = (LotteryAccount)ba1;      // downcasting - OK
                                 //   ba1 already refers to a LotteryAccount
 
 ```
+
+1) O uso de herança possibilita a reutilização de código 
+e maior segurança no código.
+
+2)Uma classe abstrata assim como uma classe normal possui
+metodos e atributos porem não pode ser instanciada e 
+pode conter metodos abstratos que devem ser implementados nas
+classes derivadas.
+A interface assim como a classe abstrata não pode ser instanciada
+mas todos os atributos e metodos implementados na interface devem
+ser implementados nas classes que a utilizam.
+
+3)UPCASTING transforma um objeto de uma subclasse em um objeto
+da sua superclasse.
+DOWNCASTING faz o inverso.
+
+4)VIRTUAL - São metodos que podem ser sobrepostos pela classe derivada.
+
+OVERRIDE - Um modificador para implementar os metodos abstratos
+de uma classe abstrata em um classe derivada.
+
+BASE - É usado para puxar os atributos de uma superclasse em
+uma subclasse.
+
+5)
+a. Os construtores possuem o mesmo nome da sua classe. Ambos possuem
+atributos de tipos diferentes ou quantidades diferentes.
+
+b.Polisformismo.
+
+c. Todas as subclasses deverão chamar o construtores definidos nas superclass,
+a não ser que na superclasse possua um construtor padrão definido.
