@@ -1,0 +1,49 @@
+-- 1) Crie uma view chamada Visao_salarios_departamentos,
+    que liste o maior salário,
+    o menor salário 
+    e a media dos salários de cada departamento cadastrado.
+     
+CREATE OR REPLACE FORCE VIEW v_visao_salario_departamento
+AS 
+SELECT  d.department_name nome_dept, max(e.salary) salario_max, min(e.salary) salario_min, avg(e.salary) salario_media FROM employees e, departments d WHERE e.department_id = d.department_id group by d.department_name;
+
+select * from v_visao_salario_departamento;
+
+-- 2)Altere a view visao_salarios_departamentos de modo que as colunas sejam nomeadas da seguinte forma: 
+nome, 
+min_sal, 
+max_sal
+media_sal. 
+Os nomes das colunas não devem ser definidos dentro da subquery e sim na especificação da view
+
+
+CREATE OR REPLACE FORCE VIEW v_visao_salario_departamento (nome, max_sal, min_sal, media_sal)
+AS 
+SELECT  d.department_name nome, max(e.salary) salario_max, min(e.salary) salario_min, avg(e.salary) salario_media FROM employees e, departments d WHERE e.department_id = d.department_id group by d.department_name;
+
+-- 3) Crie uma consulta exibindo o número do funcionário e o sobrenome de todos os funcionários
+que trabalham em um departamento com quaisquer funcionários cujo sobrenome tenha a letra “n”
+
+SELECT employee_id, last_name from employees where department_id IN ( select department_id from employees where lower(first_name) like '%n%');
+
+-- 4)Explique o que a instrução abaixo está realizando:
+SELECT last_name, job_id, hire_date FROM employees WHERE last_name IN ('Matos', 'Taylor') ORDER BY hire_date;
+
+-- Imprime o ultimo nome, o id da sua função e a data que foi empregado dos funcionários que tem o ultimo nome igual a Matos ou Taylor
+
+-- 5)Mostre os sobrenomes, cargos e salários de todos os funcionários que ocupam o cargo de representante de vendas (SALES_REP)
+ou caixa de estoque (ST_CLERK) e cujos salários não equivalem a US$ 2.500,00, US$ 3.500,00 ou US$ 7.000,00. (1,0 ponto)
+
+SELECT last_name, job_id, salary FROM employees WHERE job_id in('SALES_REP', 'ST_CLERK') and salary not in(2500,3500, 7000); 
+
+-- 6)Crie um relatório para exibir 
+o número do gerente
+e quanto ganha o funcionário com o menor salário que trabalha para esse gerente. 
+
+Exclua todos os funcionários cujo gerente é desconhecido. 
+Exclua quaisquer grupos onde o salário mínimo seja US$ 6.000 ou menos. 
+Organize os resultados por ordem decrescente de salários 
+
+CREATE OR REPLACE FORCE VIEW v_questao_6
+AS
+SELECT manager_id id_manager, min(salary) menor_sal from employees where salary > 6000 and manager_id is not null group by manager_id order by menor_sal desc;
